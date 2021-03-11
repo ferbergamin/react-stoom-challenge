@@ -1,0 +1,23 @@
+version: '3.8'
+networks:
+  web:
+    external: true
+volumes:
+  node_modules:
+services:
+  web:
+    build: .
+    env_file: .env
+    restart: always
+    stdin_open: true
+    tty: true
+    command: ${COMMAND}
+    networks:
+      - web
+    volumes:
+      - node_modules:/app/node_modules
+      - ${VOLUME_WEB}:/app
+    environment:
+      TZ: 'America/Sao_Paulo'
+    ports:
+      - '3001:3000'
