@@ -1,0 +1,12 @@
+{
+  "editor.fontFamily": "'Fira Code'",
+  "editor.fontLigatures": true,
+  "editor.fontWeight": "400",
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "eslint.run": "onSave",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "prettier.endOfLine": "lf",
+}

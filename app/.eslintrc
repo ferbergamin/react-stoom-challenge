@@ -1,0 +1,13 @@
+{
+  "extends": "react-app",
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "linebreak-style": ["error", "unix"],  // changes the file to LF
+  }
+}
