@@ -1,14 +1,24 @@
+import React from 'react'
 import { MainLayout } from 'layouts'
-const DefaultComponent = () => (
-  <div
-    style={{
-      height: '100%',
-    }}
-  ></div>
-)
+
+import useBackend from 'hooks/useBackend'
+
+import BackendProvider from 'providers/BackendProvider'
+
+const DefaultComponent = () => {
+  const data = useBackend()
+  console.log(data)
+  return (
+    <div
+      style={{
+        height: '100%',
+      }}
+    ></div>
+  )
+}
 
 function App() {
-  return <MainLayout provider={DefaultComponent} component={() => <></>} />
+  return <MainLayout provider={BackendProvider} component={DefaultComponent} />
 }
 
 export default App
