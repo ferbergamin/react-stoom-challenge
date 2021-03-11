@@ -1,11 +1,14 @@
 import React from 'react'
-import './styles.css'
+import useTheme from 'hooks/useTheme'
+import styles from './styles.js'
 
 const Footer = () => {
+  const style = useTheme(styles)
+
   return (
-    <footer className="footer">
-      <span>Desenvolvido com ❤ por Luiz F Bergamin</span>
-      <span>React Stoom Challenge</span>
+    <footer style={style.footer}>
+      <span style={style.span}>Desenvolvido com ❤ por Luiz F Bergamin</span>
+      <span style={style.span}>React Stoom Challenge</span>
     </footer>
   )
 }
