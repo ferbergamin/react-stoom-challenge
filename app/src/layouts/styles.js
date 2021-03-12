@@ -3,7 +3,7 @@ export const styles = (theme) => {
     layout: {
       textAlign: 'center',
       justifyContent: 'space-between',
-      backgroundColor: theme.color.primary,
+      backgroundColor: theme.color.backgroumd,
     },
   }
 }
