@@ -1,14 +1,41 @@
+import React from 'react'
 import { MainLayout } from 'layouts'
-const DefaultComponent = () => (
-  <div
-    style={{
-      height: '100%',
-    }}
-  ></div>
-)
+
+import BackendProvider from 'providers/BackendProvider'
+import ToastProvider from 'providers/ToastProvider'
+
+import useToast from 'hooks/useToast'
+import useBackend from 'hooks/useBackend'
+const DefaultComponent = () => {
+  const { dispatchBackend } = useBackend()
+  const { dispatchToast } = useToast()
+
+  const submit = () => {
+    dispatchBackend({
+      type: 'POST',
+      tableName: 'Orders',
+      payload: {},
+      dispatchToast: dispatchToast,
+    })
+  }
+
+  return (
+    <div
+      style={{
+        minHeight: '82vh',
+      }}
+    >
+      <button onClick={submit}>testar</button>
+    </div>
+  )
+}
 
 function App() {
-  return <MainLayout provider={DefaultComponent} component={() => <></>} />
+  return (
+    <ToastProvider>
+      <MainLayout provider={BackendProvider} component={DefaultComponent} />
+    </ToastProvider>
+  )
 }
 
 export default App
