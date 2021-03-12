@@ -3,7 +3,7 @@ import React, { useEffect, useReducer } from 'react'
 import { pizza } from 'constants/index'
 import { backend } from 'helpers'
 
-import useBackendReducer from 'reducers/backendReducer'
+import backendReducer from 'reducers/backendReducer'
 import BackendContext from 'contexts/BackendContext'
 
 const BackendProvider = ({ children }) => {
@@ -28,7 +28,7 @@ const BackendProvider = ({ children }) => {
   }
 
   const [stateBackend, dispatchBackend] = useReducer(
-    useBackendReducer,
+    backendReducer,
     mountDatabase(),
   )
 

@@ -1,9 +1,10 @@
+import { errors } from './errors'
 import { findById, generateId, updateObject } from './methods'
 
 const post = (tableName, table, payload) => {
   const { data, attributtes } = table
   if (!payload || Object.keys(payload).length === 0) {
-    return table
+    errors.InvalidParams(attributtes.join(', '))
   }
 
   const object = updateObject(attributtes, payload, { id: generateId(data) })
@@ -20,12 +21,12 @@ const update = (tableName, table, payload) => {
 
   const { id, params } = payload
   if (!id) {
-    return
+    errors.InvalidParams('id')
   }
 
   const object = findById(data, id)
   if (!object) {
-    return
+    errors.NotFound(tableName)
   }
 
   const newObject = updateObject(attributtes, params, object)

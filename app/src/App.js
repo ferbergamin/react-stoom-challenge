@@ -1,31 +1,41 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { MainLayout } from 'layouts'
 
-import useBackend from 'hooks/useBackend'
-
 import BackendProvider from 'providers/BackendProvider'
+import ToastProvider from 'providers/ToastProvider'
 
+import useToast from 'hooks/useToast'
+import useBackend from 'hooks/useBackend'
 const DefaultComponent = () => {
-  const data = useBackend()
-  useEffect(() => {
-    data.dispatchBackend({
-      type: 'FIND_BY',
+  const { dispatchBackend } = useBackend()
+  const { dispatchToast } = useToast()
+
+  const submit = () => {
+    dispatchBackend({
+      type: 'POST',
       tableName: 'Orders',
-      payload: { id: 1 },
+      payload: {},
+      dispatchToast: dispatchToast,
     })
-  })
+  }
 
   return (
     <div
       style={{
         minHeight: '82vh',
       }}
-    ></div>
+    >
+      <button onClick={submit}>testar</button>
+    </div>
   )
 }
 
 function App() {
-  return <MainLayout provider={BackendProvider} component={DefaultComponent} />
+  return (
+    <ToastProvider>
+      <MainLayout provider={BackendProvider} component={DefaultComponent} />
+    </ToastProvider>
+  )
 }
 
 export default App
