@@ -16,6 +16,9 @@ const styles = (theme) => {
       paddingTop: theme.space(2, 'px'),
       backgroundColor: theme.color.success,
     },
+    colRecommendationPrice: {
+      textAlign: 'start',
+    },
   }
 }
 

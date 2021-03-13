@@ -91,7 +91,6 @@ export const Form = () => {
     setToStep(4)
   }
 
-  console.log(watch())
   return (
     <>
       <form onSubmit={handleSubmit(submit)}>

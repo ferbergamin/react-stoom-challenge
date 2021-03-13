@@ -5,6 +5,7 @@ import {
   FormControl,
   FormGroup,
   InputGroup,
+  Row,
 } from 'react-bootstrap'
 import { Controller } from 'react-hook-form'
 
@@ -100,7 +101,7 @@ const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
             <FormGroup controlId="recommendedDayPizzaId">
               <div style={style.recommendation}>
                 <div style={style.check}>
-                  <Col lg="11" xs="10">
+                  <Col lg="10" xs="9">
                     <FormCheck
                       type="checkbox"
                       name="recommendedDayPizzaId"
@@ -118,8 +119,22 @@ const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
                       </em>
                     </p>
                   </Col>
-                  <Col lg="1" xs="2">
-                    Cupom de <em>{recommendation.points.toFixed(0)}</em>%
+                  <Col lg="2" xs="3" style={style.colRecommendationPrice}>
+                    <Row>
+                      <span>
+                        <s>R${recommendation.ammount.toFixed(2)}</s> por R${' '}
+                        {(
+                          recommendation?.ammount -
+                          (recommendation?.ammount * recommendation?.points) /
+                            100
+                        ).toFixed(2)}
+                      </span>
+                    </Row>
+                    <Row>
+                      <span>
+                        <em>{recommendation.points.toFixed(0)}% de desconto</em>
+                      </span>
+                    </Row>
                   </Col>
                 </div>
                 <hr className="divider bg-white"></hr>
