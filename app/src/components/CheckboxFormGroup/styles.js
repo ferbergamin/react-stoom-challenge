@@ -9,8 +9,8 @@ const styles = (theme) => {
     },
     check: {
       display: 'flex',
-      flexDirection: 'column',
       textAlign: 'justify',
+      width: '100%',
     },
   }
 }

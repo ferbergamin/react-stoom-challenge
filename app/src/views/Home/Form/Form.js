@@ -5,7 +5,6 @@ import { Button } from 'react-bootstrap'
 import {
   DoughStepper,
   FillingStepper,
-  LoadingComponent,
   OrderFinalized,
   SizeStepper,
 } from 'components'
@@ -19,7 +18,7 @@ import useOrder from 'hooks/useOrderProvider'
 import schema from './schema'
 
 export const Form = () => {
-  const { data, updateOrder, orderLoaded, finalizeOrder } = useOrder()
+  const { data, updateOrder, finalizeOrder } = useOrder()
 
   const {
     setToStep,
@@ -77,7 +76,7 @@ export const Form = () => {
   }
 
   return (
-    <LoadingComponent loading={!orderLoaded || data === undefined}>
+    <>
       <form onSubmit={handleSubmit(submit)}>
         {activeStep === 1 && (
           <DoughStepper control={control} defaultValue={data?.PizzaDough?.id} />
@@ -111,7 +110,7 @@ export const Form = () => {
           </Button>
         </div>
       )}
-    </LoadingComponent>
+    </>
   )
 }
 
