@@ -7,7 +7,7 @@ const Header = () => {
 
   return (
     <header style={style.header}>
-      <h5 style={style.h5}>React Stoom Pizza Chalenge</h5>
+      <h5 style={style.h5}>React Stoom Pizza Challenge</h5>
     </header>
   )
 }

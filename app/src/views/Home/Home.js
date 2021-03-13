@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 
 import { Container, Button, Card, Row, Col } from 'react-bootstrap'
+
 import {
   DoughStepper,
   FillingStepper,
   LoadingComponent,
+  OrderFinalized,
   SizeStepper,
   Stepper,
 } from 'components'
@@ -88,37 +90,7 @@ const Home = () => {
                 defaultValue={defaultValues.pizzaSizeId}
               />
             )}
-            {activeStep === 4 && (
-              <div>
-                <Card style={style.card} text="light" size={25}>
-                  <Card.Title>
-                    Sua pizza foi encaminhada para nosso cozinha
-                  </Card.Title>
-                  <Card.Body>
-                    <Row>
-                      <Col>Massa:</Col>
-                      <Col>{data?.PizzaDough?.name || '-'}</Col>
-                    </Row>
-                    <Row>
-                      <Col>Tamanho:</Col>
-                      <Col>{data?.PizzaSize?.name || '-'}</Col>
-                    </Row>
-                    <Row>
-                      <Col>Recheio:</Col>
-                      <Col>{data?.PizzaFilling?.name || '-'}</Col>
-                    </Row>
-                    <Row>
-                      <Col>Preço:</Col>
-                      <Col>R$ {data?.ammount?.toFixed(2) || '-'}</Col>
-                    </Row>
-                    <Row>
-                      <Col>Pontos:</Col>
-                      <Col>{data?.points || '-'}</Col>
-                    </Row>
-                  </Card.Body>
-                </Card>
-              </div>
-            )}
+            {activeStep === 4 && <OrderFinalized />}
             {activeStep < 3 ? (
               <Button
                 variant="primary"
