@@ -23,7 +23,11 @@ const StepperProvider = ({ children }) => {
   }
 
   const finalizeStep = (step) => {
-    setFinalizedSteps([...finalizedSteps, step])
+    if (typeof step === 'object') {
+      setFinalizedSteps([...step])
+    } else {
+      setFinalizedSteps([...finalizedSteps, step])
+    }
   }
   return (
     <StepperContext.Provider

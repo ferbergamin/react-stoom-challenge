@@ -70,7 +70,7 @@ const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
                     R$<em>{item.price.toFixed(2)}</em>
                   </Col>
                 </div>
-                <hr class="divider bg-white"></hr>
+                <hr className="divider bg-white"></hr>
               </div>
             ))}
           </FormGroup>

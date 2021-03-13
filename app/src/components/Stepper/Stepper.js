@@ -10,6 +10,7 @@ const Stepper = ({ children }) => {
   const style = useTheme(styles)
   const { activeStep, finalizedSteps } = useStepper()
 
+  console.log(finalizedSteps)
   return (
     <div style={style.stepper}>
       <Row>

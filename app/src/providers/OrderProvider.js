@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 
 import OrderContext from 'contexts/OrderContext'
 import { Toast } from 'components'
+
 import fakeApi from 'services/fakeApi'
 import useBackend from 'hooks/useBackend'
+import useStepper from 'hooks/useStepper'
 
 const OrderProvider = ({ children }) => {
   const [data, setData] = useState()
   const { dispatchBackend } = useBackend()
+  const { finalizeStep, setToStep } = useStepper()
   const [orderLoaded, setOrderLoaded] = useState(false)
 
   const loadData = (cb = () => {}) => {
@@ -32,6 +35,20 @@ const OrderProvider = ({ children }) => {
 
     activeOrder = fakeApi.findBy(fakeApi.get('Orders'), { finalized: false })
     setData(activeOrder[0])
+    const toInactivate = [0]
+    if (activeOrder[0]?.PizzaDough?.id) {
+      toInactivate.push(1)
+    }
+    if (activeOrder[0]?.PizzaSize?.id) {
+      toInactivate.push(2)
+    }
+    if (activeOrder[0]?.PizzaFilling?.id) {
+      toInactivate.push(3)
+    }
+
+    finalizeStep(toInactivate)
+    setToStep(Math.max.apply(null, toInactivate) + 1)
+
     if (!orderLoaded) {
       setOrderLoaded(true)
     }
@@ -60,7 +77,6 @@ const OrderProvider = ({ children }) => {
   }
 
   const finalizeOrder = (data) => {
-    console.log(data)
     const ammount =
       data.PizzaDough?.price + data.PizzaFilling?.price + data.PizzaSize?.price
 
