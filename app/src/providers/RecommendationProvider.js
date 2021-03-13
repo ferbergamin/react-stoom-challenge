@@ -12,7 +12,7 @@ const RecommendationProvider = ({ children }) => {
   const [recommendationChecked, setRecommendationChecked] = useState(false)
   const { dispatchBackend } = useBackend()
 
-  const loadData = (cb = () => {}) => {
+  const loadData = () => {
     dispatchBackend({
       type: 'POST',
       tableName: 'RecommendedDayPizzas',
@@ -24,7 +24,6 @@ const RecommendationProvider = ({ children }) => {
       generateId(recommendationData) - 1,
     )
     setData(recommendation)
-    cb()
   }
 
   const handleRecommendation = (data) => {

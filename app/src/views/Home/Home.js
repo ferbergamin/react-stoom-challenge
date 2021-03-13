@@ -16,20 +16,25 @@ const Home = () => {
   const style = useTheme(styles)
   const [loading, setLoading] = useState(false)
   const { activeStep } = useStepper()
-  const { loadData: loadRecommendations } = useRecommendation()
+  const {
+    data: recommendations,
+    loadData: loadRecommendations,
+  } = useRecommendation()
   const { data, loadData } = useOrder()
 
   useEffect(() => {
-    if (!data) {
+    if (!data || !recommendations) {
       setLoading(true)
       loadData(() => {
-        loadRecommendations(() => {
-          setLoading(false)
-        })
+        loadRecommendations()
       })
+    } else {
+      if (loading) {
+        setLoading(false)
+      }
     }
     //eslint-disable-next-line
-  }, [activeStep, data, loading])
+  }, [activeStep, data, loading, recommendations])
 
   return (
     <Container fluid="xl" style={style.container}>
