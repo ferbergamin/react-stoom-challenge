@@ -12,11 +12,12 @@ Plataforma web para realizar pedidos de pizzas
 
 #### Docker
 * Navegar até */app*
-* executar ``docker-compose build && docker-compose up`
+* executar `docker-compose build && docker-compose up`
 * acessar a rota http://localhost:3001
 
 #### Local
 * Navegar até */app*
+* executar `yarn install`
 * executar `yarn start`
 * acessar a rota http://localhost:3000
 

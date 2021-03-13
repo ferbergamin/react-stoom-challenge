@@ -14,6 +14,7 @@ import { Search } from 'react-feather'
 import useRecommendation from 'hooks/useRecommendations.js'
 import useTheme from 'hooks/useTheme'
 import styles from './styles.js'
+import { pizzas } from 'helpers'
 
 const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
   const style = useTheme(styles)
@@ -82,7 +83,7 @@ const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
                     </p>
                   </Col>
                   <Col lg="1" xs="3">
-                    R$<em>{item.price.toFixed(2)}</em>
+                    <em>{pizzas.formatPrice(item?.price)}</em>
                   </Col>
                 </div>
                 <hr className="divider bg-white"></hr>
@@ -111,23 +112,17 @@ const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
                       onChange={handleRecommendationChange}
                     />
                     <p>
-                      <em>
-                        Uma pizza {recommendation.PizzaSize.name} bem
-                        caprichada, com a deliciosa massa{' '}
-                        {recommendation.PizzaDough.name} e recheada com{' '}
-                        {recommendation.PizzaFilling.name}
-                      </em>
+                      <em>{pizzas.generateDescription(recommendation)}</em>
                     </p>
                   </Col>
                   <Col lg="2" xs="3" style={style.colRecommendationPrice}>
                     <Row>
                       <span>
-                        <s>R${recommendation.ammount.toFixed(2)}</s> por R$
-                        {(
-                          recommendation?.ammount -
-                          (recommendation?.ammount * recommendation?.points) /
-                            100
-                        ).toFixed(2)}
+                        <s>{pizzas.formatPrice(recommendation?.ammount)}</s> por
+                        {pizzas.formatPrice(
+                          recommendation?.ammount,
+                          recommendation?.points,
+                        )}
                       </span>
                     </Row>
                     <Row>

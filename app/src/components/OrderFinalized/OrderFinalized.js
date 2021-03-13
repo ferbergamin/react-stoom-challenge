@@ -1,6 +1,8 @@
 import React from 'react'
 import { Card, Col, Row } from 'react-bootstrap'
 
+import { pizzas } from 'helpers'
+
 import useOrder from 'hooks/useOrderProvider'
 import useTheme from 'hooks/useTheme'
 import styles from './styles'
@@ -28,7 +30,7 @@ const OrderFinalized = ({ children }) => {
           </Row>
           <Row>
             <Col>Preço:</Col>
-            <Col>R$ {data?.ammount?.toFixed(2) || '-'}</Col>
+            <Col>{pizzas.formatPrice(data?.ammount)}</Col>
           </Row>
 
           <Row>
@@ -37,12 +39,7 @@ const OrderFinalized = ({ children }) => {
           </Row>
           <Row>
             <Col>Total:</Col>
-            <Col>
-              R${' '}
-              {(data?.ammount - (data?.ammount * data?.points) / 100).toFixed(
-                2,
-              )}
-            </Col>
+            <Col>{pizzas.formatPrice(data?.ammount, data?.points)}</Col>
           </Row>
         </Card.Body>
       </Card>
