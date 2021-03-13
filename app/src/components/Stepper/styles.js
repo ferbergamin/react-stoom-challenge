@@ -10,7 +10,7 @@ const styles = (theme) => {
       height: '100%',
       flexDirection: 'column',
     },
-    card: { backgroundColor: theme.color.white, ...CARD_STYLES },
+    card: {  ...CARD_STYLES, backgroundColor: theme.color.white },
     cardActive: {
       ...CARD_STYLES,
       backgroundColor: theme.color.primary,
