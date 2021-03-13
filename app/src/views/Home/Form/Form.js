@@ -16,6 +16,7 @@ import {
 import useStepper from 'hooks/useStepper'
 import useOrder from 'hooks/useOrderProvider'
 import useRecommendation from 'hooks/useRecommendations'
+import useBackend from 'hooks/useBackend'
 
 import schema from './schema'
 import { routes } from 'Routes'
@@ -23,6 +24,7 @@ import { routes } from 'Routes'
 export const Form = () => {
   const { data, setData, updateOrder, finalizeOrder } = useOrder()
 
+  const { dispatchBackend } = useBackend()
   const {
     setToStep,
     activeStep,
@@ -87,6 +89,11 @@ export const Form = () => {
   }
 
   const submitRecommendation = () => {
+    dispatchBackend({
+      type: 'DELETE',
+      tableName: 'Orders',
+      payload: { id: data.id },
+    })
     const order = handleRecommendation(recommendation)
     setData(order)
     finalizeStep([1, 2, 3])
@@ -115,7 +122,7 @@ export const Form = () => {
           />
         )}
 
-        {activeStep === 3 && (
+        {activeStep === 3 && !recommendationChecked && (
           <Button disabled={nextDisabled} variant="primary" type="submit">
             Finalizar
           </Button>
@@ -129,20 +136,22 @@ export const Form = () => {
         </OrderFinalized>
       )}
 
-      {activeStep < 3 && (
+      {activeStep < 4 && (
         <div>
           {recommendationChecked ? (
             <Button variant="primary" onClick={submitRecommendation}>
               Finalizar
             </Button>
           ) : (
-            <Button
-              variant="primary"
-              onClick={passStep}
-              disabled={nextDisabled}
-            >
-              Próximo
-            </Button>
+            activeStep < 3 && (
+              <Button
+                variant="primary"
+                onClick={passStep}
+                disabled={nextDisabled}
+              >
+                Próximo
+              </Button>
+            )
           )}
         </div>
       )}
