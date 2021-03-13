@@ -1,8 +1,9 @@
+import useStepper from 'hooks/useStepper'
 import React, { useEffect, useState } from 'react'
 import { Card, Col } from 'react-bootstrap'
 import { CheckSquare, MinusSquare, XSquare } from 'react-feather'
 
-const CardStepper = ({ children, style, active, concluded, ...rest }) => {
+const CardStepper = ({ children, style, active, concluded, step, ...rest }) => {
   useEffect(() => {
     const loadCard = () => {
       if (active) {
@@ -23,11 +24,18 @@ const CardStepper = ({ children, style, active, concluded, ...rest }) => {
     //eslint-disable-next-line
   }, [active, concluded])
 
+  const { setActiveStep } = useStepper()
   const [Icon, setIcon] = useState(XSquare)
   const [cardStyle, setStyle] = useState(style.card)
 
+  const handleGoToStep = () => {
+    if (active || concluded) {
+      setActiveStep(step)
+    }
+  }
+
   return (
-    <Col md={4} sm={12}>
+    <Col md={4} sm={12} onClick={handleGoToStep}>
       <Card
         text={active || concluded ? 'light' : 'dark'}
         style={cardStyle}

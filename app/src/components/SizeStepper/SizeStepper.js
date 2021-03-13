@@ -5,15 +5,15 @@ import useTheme from 'hooks/useTheme'
 
 import styles from './styles.js'
 import fakeApi from 'services/fakeApi.js'
-import { CheckboxFormGroup } from 'components'
+import { CheckboxFormGroup } from 'components/'
 
-const DoughStepper = ({ control, register, defaultValue }) => {
-  const [doughs, setDoughs] = useState([])
+const SizeStepper = ({ control, register }) => {
+  const [sizes, setSizes] = useState([])
   useEffect(() => {
-    const loadDoughs = () => {
-      setDoughs(fakeApi.get('PizzaDoughs'))
+    const loadSizes = () => {
+      setSizes(fakeApi.get('PizzaSizes'))
     }
-    loadDoughs()
+    loadSizes()
   }, [])
 
   const style = useTheme(styles)
@@ -23,15 +23,14 @@ const DoughStepper = ({ control, register, defaultValue }) => {
       <h4>Escolha a massa</h4>
       <div key={`default-radio`} className="mb-3">
         <CheckboxFormGroup
-          items={doughs}
+          items={sizes}
           control={control}
           register={register}
-          name="pizzaDoughId"
-          defaultValue={defaultValue || ''}
+          name="pizzaSizeId"
         />
       </div>
     </Container>
   )
 }
 
-export default DoughStepper
+export default SizeStepper

@@ -15,6 +15,7 @@ const Stepper = ({ children }) => {
       <Row>
         <CardStepper
           style={style}
+          step={1}
           active={activeStep === 1}
           concluded={activeStep > 1}
         >
@@ -22,12 +23,14 @@ const Stepper = ({ children }) => {
         </CardStepper>
         <CardStepper
           style={style}
+          step={2}
           active={activeStep === 2}
           concluded={activeStep > 2}
         >
           Escolha o tamanho
         </CardStepper>
         <CardStepper
+          step={3}
           style={style}
           active={activeStep === 3}
           concluded={activeStep > 3}

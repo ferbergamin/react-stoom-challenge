@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { Container, Button } from 'react-bootstrap'
-import { DoughStepper, Stepper } from 'components'
+import { DoughStepper, SizeStepper, Stepper } from 'components'
 import { useForm } from 'react-hook-form'
 
 // import useToast from 'hooks/useToast'
@@ -24,13 +24,15 @@ const Home = () => {
     setNextDisabled,
   } = useStepper()
 
+  const defaultValues = {
+    pizzaDoughId: '',
+    pizzaSizeId: '',
+    pizzaFillingId: '',
+  }
+
   const { register, control, handleSubmit, watch } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: {
-      pizzaDoughId: '',
-      pizzaSizeId: '',
-      pizzaFillingId: '',
-    },
+    defaultValues: defaultValues,
   })
 
   useEffect(() => {
@@ -47,14 +49,25 @@ const Home = () => {
       <Stepper>
         <form onSubmit={handleSubmit(submit)}>
           {activeStep === 1 && (
-            <DoughStepper control={control} register={register} />
+            <DoughStepper
+              control={control}
+              register={register}
+              defaultValue={defaultValues.pizzaDoughId}
+            />
+          )}
+          {activeStep === 2 && (
+            <SizeStepper
+              control={control}
+              register={register}
+              defaultValue={defaultValues.pizzaSizeId}
+            />
           )}
           {activeStep < 3 ? (
             <Button variant="primary" onClick={submit} disabled={nextDisabled}>
               Próximo
             </Button>
           ) : (
-            <Button variant="primary" type="submit">
+            <Button variant="primary" disabled={nextDisabled} type="submit">
               Salvar
             </Button>
           )}
