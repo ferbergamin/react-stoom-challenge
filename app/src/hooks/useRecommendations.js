@@ -9,13 +9,22 @@ const useRecommendation = () => {
     throw new Error('useRecommendation possui contexto inválido')
   }
 
-  const { data, setData, loadData, handleRecommendation } = context
+  const {
+    data,
+    setData,
+    loadData,
+    handleRecommendation,
+    recommendationChecked,
+    setRecommendationChecked,
+  } = context
 
   return {
     data,
     setData,
     loadData,
     handleRecommendation,
+    recommendationChecked,
+    setRecommendationChecked,
   }
 }
 

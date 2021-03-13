@@ -29,8 +29,13 @@ export const Form = () => {
     setNextDisabled,
     finalizeStep,
   } = useStepper()
+  const stepNameId = stepName[0]?.toLowerCase() + stepName?.slice(1, -1) + 'Id'
 
-  const { data: recommendation, handleRecommendation } = useRecommendation()
+  const {
+    data: recommendation,
+    handleRecommendation,
+    recommendationChecked,
+  } = useRecommendation()
 
   const { control, handleSubmit, watch, getValues, setValue } = useForm({
     resolver: yupResolver(schema),
@@ -38,7 +43,7 @@ export const Form = () => {
       pizzaDoughId: data?.PizzaDough?.id?.toString() || '',
       pizzaSizeId: data?.PizzaSize?.id?.toString() || '',
       pizzaFillingId: data?.PizzaFilling?.id?.toString() || '',
-      recommendedDayPizzaId: false,
+      recommendedDayPizzaId: 'false',
     },
   })
 
@@ -63,7 +68,7 @@ export const Form = () => {
       setNextDisabled(valueIsNull())
     }
     //eslint-disable-next-line
-  }, [activeStep, data, watch(stepName[0].toLowerCase() + stepName.slice(1, -1) + 'Id')])
+  }, [activeStep, data, watch(stepNameId)])
 
   const passStep = () => {
     var values = getValues()
@@ -86,6 +91,7 @@ export const Form = () => {
     setToStep(4)
   }
 
+  console.log(watch())
   return (
     <>
       <form onSubmit={handleSubmit(submit)}>
@@ -117,7 +123,7 @@ export const Form = () => {
       </form>
       {activeStep < 3 && (
         <div>
-          {watch('recommendedDayPizzaId') === 'true' ? (
+          {recommendationChecked ? (
             <Button variant="primary" onClick={submitRecommendation}>
               Finalizar
             </Button>

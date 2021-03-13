@@ -10,6 +10,7 @@ import { generateId } from 'services/methods'
 
 const RecommendationProvider = ({ children }) => {
   const [data, setData] = useState()
+  const [recommendationChecked, setRecommendationChecked] = useState(false)
   const { dispatchBackend } = useBackend()
 
   const loadData = (cb = () => {}) => {
@@ -47,6 +48,8 @@ const RecommendationProvider = ({ children }) => {
         setData,
         loadData,
         handleRecommendation,
+        recommendationChecked,
+        setRecommendationChecked,
       }}
     >
       {children}

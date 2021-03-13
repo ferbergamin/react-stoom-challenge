@@ -15,11 +15,14 @@ import useTheme from 'hooks/useTheme'
 import styles from './styles.js'
 
 const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
-  const [recommendationChecked, setRecommendationChecked] = useState(false)
   const style = useTheme(styles)
 
   const [items, setItems] = useState(itemsData)
-  const { data: recommendation } = useRecommendation()
+  const {
+    data: recommendation,
+    recommendationChecked,
+    setRecommendationChecked,
+  } = useRecommendation()
   const [filter, setfilter] = useState('')
 
   useEffect(() => {
@@ -39,7 +42,7 @@ const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
     setRecommendationChecked(!recommendationChecked)
   }
 
-  const inactiveRecommendation = () => {
+  const inactivateRecommendation = () => {
     setRecommendationChecked(false)
   }
 
@@ -71,7 +74,7 @@ const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
                       label={item.name}
                       value={item.id}
                       defaultChecked={defaultValue === item.id}
-                      onChange={inactiveRecommendation}
+                      onChange={inactivateRecommendation}
                     />
                     <p>
                       <em>{item.description}</em>
@@ -86,6 +89,7 @@ const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
             ))}
           </FormGroup>
         }
+        defaultValue={defaultValue}
         control={control}
         name={name}
       />
