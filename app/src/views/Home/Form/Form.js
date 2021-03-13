@@ -14,11 +14,12 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import useStepper from 'hooks/useStepper'
 import useOrder from 'hooks/useOrderProvider'
+import useRecommendation from 'hooks/useRecommendations'
 
 import schema from './schema'
 
 export const Form = () => {
-  const { data, updateOrder, finalizeOrder } = useOrder()
+  const { data, setData, updateOrder, finalizeOrder } = useOrder()
 
   const {
     setToStep,
@@ -29,12 +30,15 @@ export const Form = () => {
     finalizeStep,
   } = useStepper()
 
+  const { data: recommendation, handleRecommendation } = useRecommendation()
+
   const { control, handleSubmit, watch, getValues, setValue } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       pizzaDoughId: data?.PizzaDough?.id?.toString() || '',
       pizzaSizeId: data?.PizzaSize?.id?.toString() || '',
       pizzaFillingId: data?.PizzaFilling?.id?.toString() || '',
+      recommendedDayPizzaId: false,
     },
   })
 
@@ -75,6 +79,13 @@ export const Form = () => {
     setToStep(activeStep + 1)
   }
 
+  const submitRecommendation = () => {
+    const order = handleRecommendation(recommendation)
+    setData(order)
+    finalizeStep([1, 2, 3])
+    setToStep(4)
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit(submit)}>
@@ -97,17 +108,28 @@ export const Form = () => {
           />
         )}
         {activeStep === 4 && <OrderFinalized />}
+
         {activeStep >= 3 && (
           <Button disabled={nextDisabled} variant="primary" type="submit">
-            {activeStep === 3 ? 'Salvar' : 'Ver todos os pedidos'}
+            {activeStep === 3 ? 'Finalizar' : 'Ver todos os pedidos'}
           </Button>
         )}
       </form>
       {activeStep < 3 && (
         <div>
-          <Button variant="primary" onClick={passStep} disabled={nextDisabled}>
-            Próximo
-          </Button>
+          {watch('recommendedDayPizzaId') === 'true' ? (
+            <Button variant="primary" onClick={submitRecommendation}>
+              Finalizar
+            </Button>
+          ) : (
+            <Button
+              variant="primary"
+              onClick={passStep}
+              disabled={nextDisabled}
+            >
+              Próximo
+            </Button>
+          )}
         </div>
       )}
     </>

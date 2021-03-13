@@ -29,9 +29,17 @@ const OrderFinalized = () => {
           <Col>Preço:</Col>
           <Col>R$ {data?.ammount?.toFixed(2) || '-'}</Col>
         </Row>
+
         <Row>
-          <Col>Pontos:</Col>
-          <Col>{data?.points || '-'}</Col>
+          <Col>Pontos de desconto:</Col>
+          <Col>{data?.points}%</Col>
+        </Row>
+        <Row>
+          <Col>Total:</Col>
+          <Col>
+            R${' '}
+            {(data?.ammount - (data?.ammount * data?.points) / 100).toFixed(2)}
+          </Col>
         </Row>
       </Card.Body>
     </Card>

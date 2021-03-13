@@ -12,6 +12,10 @@ const styles = (theme) => {
       textAlign: 'justify',
       width: '100%',
     },
+    recommendation: {
+      paddingTop: theme.space(2, 'px'),
+      backgroundColor: theme.color.success,
+    },
   }
 }
 

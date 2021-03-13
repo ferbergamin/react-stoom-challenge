@@ -1,0 +1,58 @@
+import React, { useState } from 'react'
+
+import RecommendationContext from 'contexts/RecommendationContext'
+import { Toast } from 'components'
+
+import fakeApi from 'services/fakeApi'
+import useBackend from 'hooks/useBackend'
+import { pizzas } from 'helpers'
+import { generateId } from 'services/methods'
+
+const RecommendationProvider = ({ children }) => {
+  const [data, setData] = useState()
+  const { dispatchBackend } = useBackend()
+
+  const loadData = (cb = () => {}) => {
+    dispatchBackend({
+      type: 'POST',
+      tableName: 'RecommendedDayPizzas',
+      payload: pizzas.generateRandomPizza(),
+    })
+    const recommendationData = fakeApi.get('RecommendedDayPizzas')
+    const recommendation = fakeApi.find(
+      recommendationData,
+      generateId(recommendationData) - 1,
+    )
+    setData(recommendation)
+    cb()
+  }
+
+  const handleRecommendation = (data) => {
+    delete data.id
+    dispatchBackend({
+      type: 'POST',
+      tableName: 'Orders',
+      payload: { ...data, finalized: true },
+    })
+    return fakeApi.find(
+      fakeApi.get('Orders'),
+      generateId(fakeApi.get('Orders')) - 1,
+    )
+  }
+
+  return (
+    <RecommendationContext.Provider
+      value={{
+        data,
+        setData,
+        loadData,
+        handleRecommendation,
+      }}
+    >
+      {children}
+      <Toast />
+    </RecommendationContext.Provider>
+  )
+}
+
+export default RecommendationProvider

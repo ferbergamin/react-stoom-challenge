@@ -5,19 +5,21 @@ import {
   FormControl,
   FormGroup,
   InputGroup,
-  Dropdown,
 } from 'react-bootstrap'
 import { Controller } from 'react-hook-form'
 
 import { Search } from 'react-feather'
 
+import useRecommendation from 'hooks/useRecommendations.js'
 import useTheme from 'hooks/useTheme'
 import styles from './styles.js'
 
 const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
+  const [recommendationChecked, setRecommendationChecked] = useState(false)
   const style = useTheme(styles)
 
   const [items, setItems] = useState(itemsData)
+  const { data: recommendation } = useRecommendation()
   const [filter, setfilter] = useState('')
 
   useEffect(() => {
@@ -32,6 +34,14 @@ const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
     }
     //eslint-disable-next-line
   }, [filter, itemsData])
+
+  const handleRecommendationChange = () => {
+    setRecommendationChecked(!recommendationChecked)
+  }
+
+  const inactiveRecommendation = () => {
+    setRecommendationChecked(false)
+  }
 
   return (
     <div>
@@ -54,19 +64,20 @@ const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
             {items.map((item) => (
               <div key={item.id}>
                 <div style={style.check}>
-                  <Col sm="11" xs="10">
+                  <Col lg="11" xs="10">
                     <FormCheck
                       type="radio"
                       name={name}
                       label={item.name}
                       value={item.id}
                       defaultChecked={defaultValue === item.id}
+                      onChange={inactiveRecommendation}
                     />
                     <p>
                       <em>{item.description}</em>
                     </p>
                   </Col>
-                  <Col sm="1" xs="2">
+                  <Col lg="1" xs="2">
                     R$<em>{item.price.toFixed(2)}</em>
                   </Col>
                 </div>
@@ -78,6 +89,43 @@ const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
         control={control}
         name={name}
       />
+
+      {recommendation && (
+        <Controller
+          as={
+            <FormGroup controlId="recommendedDayPizzaId">
+              <div style={style.recommendation}>
+                <div style={style.check}>
+                  <Col lg="11" xs="10">
+                    <FormCheck
+                      type="checkbox"
+                      name="recommendedDayPizzaId"
+                      label="Recommendação do dia"
+                      value={!recommendationChecked}
+                      checked={recommendationChecked}
+                      onChange={handleRecommendationChange}
+                    />
+                    <p>
+                      <em>
+                        Uma pizza {recommendation.PizzaSize.name} bem
+                        caprichada, com a deliciosa massa{' '}
+                        {recommendation.PizzaDough.name} e recheada com{' '}
+                        {recommendation.PizzaFilling.name}
+                      </em>
+                    </p>
+                  </Col>
+                  <Col lg="1" xs="2">
+                    Cupom de <em>{recommendation.points.toFixed(0)}</em>%
+                  </Col>
+                </div>
+                <hr className="divider bg-white"></hr>
+              </div>
+            </FormGroup>
+          }
+          control={control}
+          name="recommendedDayPizzaId"
+        />
+      )}
     </div>
   )
 }

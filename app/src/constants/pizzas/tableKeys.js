@@ -36,7 +36,7 @@ const tableKeys = [
       'id',
       'PizzaDough',
       'PizzaFilling',
-      'pizzaSize',
+      'PizzaSize',
       'ammount',
       'points',
     ],
