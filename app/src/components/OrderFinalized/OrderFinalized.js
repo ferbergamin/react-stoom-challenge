@@ -11,7 +11,7 @@ const OrderFinalized = () => {
 
   return (
     <Card style={style.card} text="light" size={25}>
-      <Card.Title>Sua pizza foi encaminhada para a nossa cozinha</Card.Title>
+      <Card.Title>Sua pizza foi encaminhada direto para o forno</Card.Title>
       <Card.Body>
         <Row>
           <Col>Massa:</Col>

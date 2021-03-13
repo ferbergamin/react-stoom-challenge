@@ -8,7 +8,7 @@ const pizzaFillings = [
   {
     id: 2,
     name: 'Atum',
-    description: 'Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah-tum',
+    description: 'Aaaaaaaaaaaaaaaaaaaaaaaah-tum',
     price: 11.0,
   },
   {

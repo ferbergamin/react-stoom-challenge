@@ -68,7 +68,7 @@ const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
             {items.map((item) => (
               <div key={item.id}>
                 <div style={style.check}>
-                  <Col lg="11" xs="10">
+                  <Col lg="11" xs="9">
                     <FormCheck
                       type="radio"
                       name={name}
@@ -81,7 +81,7 @@ const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
                       <em>{item.description}</em>
                     </p>
                   </Col>
-                  <Col lg="1" xs="2">
+                  <Col lg="1" xs="3">
                     R$<em>{item.price.toFixed(2)}</em>
                   </Col>
                 </div>
@@ -122,7 +122,7 @@ const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
                   <Col lg="2" xs="3" style={style.colRecommendationPrice}>
                     <Row>
                       <span>
-                        <s>R${recommendation.ammount.toFixed(2)}</s> por R${' '}
+                        <s>R${recommendation.ammount.toFixed(2)}</s> por R$
                         {(
                           recommendation?.ammount -
                           (recommendation?.ammount * recommendation?.points) /
