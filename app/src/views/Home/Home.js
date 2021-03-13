@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 
-import { Container, Button } from 'react-bootstrap'
+import { Container, Button, Card, Row, Col } from 'react-bootstrap'
 import {
   DoughStepper,
+  FillingStepper,
   LoadingComponent,
   SizeStepper,
   Stepper,
@@ -46,12 +47,12 @@ const Home = () => {
     if (!data) {
       loadData()
     }
+    if (activeStep < 4) {
+      const obj = watch()[Object.keys(watch())[0]]
+      const condition = ['', 0, null, undefined].includes(obj)
 
-    const condition = ['', 0, null, undefined].includes(
-      watch()[Object.keys(watch())[0]],
-    )
-
-    setNextDisabled(condition)
+      setNextDisabled(condition)
+    }
     //eslint-disable-next-line
   }, [activeStep, watch()])
 
@@ -80,6 +81,44 @@ const Home = () => {
                 defaultValue={defaultValues.pizzaSizeId}
               />
             )}
+            {activeStep === 3 && (
+              <FillingStepper
+                control={control}
+                register={register}
+                defaultValue={defaultValues.pizzaSizeId}
+              />
+            )}
+            {activeStep === 4 && (
+              <div>
+                <Card style={style.card} text="light" size={25}>
+                  <Card.Title>
+                    Sua pizza foi encaminhada para nosso cozinha
+                  </Card.Title>
+                  <Card.Body>
+                    <Row>
+                      <Col>Massa:</Col>
+                      <Col>{data?.PizzaDough?.name || '-'}</Col>
+                    </Row>
+                    <Row>
+                      <Col>Tamanho:</Col>
+                      <Col>{data?.PizzaSize?.name || '-'}</Col>
+                    </Row>
+                    <Row>
+                      <Col>Recheio:</Col>
+                      <Col>{data?.PizzaFilling?.name || '-'}</Col>
+                    </Row>
+                    <Row>
+                      <Col>Preço:</Col>
+                      <Col>R$ {data?.ammount?.toFixed(2) || '-'}</Col>
+                    </Row>
+                    <Row>
+                      <Col>Pontos:</Col>
+                      <Col>{data?.points || '-'}</Col>
+                    </Row>
+                  </Card.Body>
+                </Card>
+              </div>
+            )}
             {activeStep < 3 ? (
               <Button
                 variant="primary"
@@ -89,8 +128,8 @@ const Home = () => {
                 Próximo
               </Button>
             ) : (
-              <Button variant="primary" type="submit">
-                Salvar
+              <Button disabled={nextDisabled} variant="primary" type="submit">
+                {activeStep === 3 ? 'Salvar' : 'Ver todos os pedidos'}
               </Button>
             )}
           </form>

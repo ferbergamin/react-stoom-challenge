@@ -24,18 +24,25 @@ const CardStepper = ({ children, style, active, concluded, step, ...rest }) => {
     //eslint-disable-next-line
   }, [active, concluded])
 
-  const { setToStep } = useStepper()
+  const { setToStep, activeStep } = useStepper()
   const [Icon, setIcon] = useState(XSquare)
   const [cardStyle, setStyle] = useState(style.card)
 
   const handleGoToStep = () => {
-    if (active || concluded) {
+    if ((active || concluded) && activeStep < 3) {
       setToStep(step)
     }
   }
 
   return (
-    <Col md={4} sm={12} onClick={handleGoToStep}>
+    <Col
+      md={4}
+      sm={12}
+      onClick={handleGoToStep}
+      style={{
+        cursor: (active || concluded) && activeStep < 3 ? 'pointer' : 'auto',
+      }}
+    >
       <Card
         text={active || concluded ? 'light' : 'dark'}
         style={cardStyle}

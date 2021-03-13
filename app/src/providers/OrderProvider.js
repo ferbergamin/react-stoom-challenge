@@ -10,7 +10,7 @@ const OrderProvider = ({ children }) => {
   const { dispatchBackend } = useBackend()
   const [orderLoaded, setOrderLoaded] = useState(false)
 
-  const loadData = () => {
+  const loadData = (cb = () => {}) => {
     let activeOrder = fakeApi.findBy(fakeApi.get('Orders'), {
       finalized: false,
     })
@@ -35,6 +35,7 @@ const OrderProvider = ({ children }) => {
     if (!orderLoaded) {
       setOrderLoaded(true)
     }
+    cb(activeOrder[0])
   }
 
   const updateOrder = (field, id, value = '') => {
@@ -54,10 +55,30 @@ const OrderProvider = ({ children }) => {
         },
       },
     })
+
+    if (field === 'PizzaFillings') {
+      return loadData(finalizeOrder)
+    }
     loadData()
   }
 
-  // const finalizeOrder = () => {}
+  const finalizeOrder = (data) => {
+    const ammount =
+      data.PizzaDough.price + data.PizzaFilling.price + data.PizzaSize.price
+
+    dispatchBackend({
+      type: 'UPDATE',
+      tableName: 'Orders',
+      payload: {
+        id: data.id,
+        params: {
+          finalized: true,
+          ammount: ammount,
+        },
+      },
+    })
+    setData(fakeApi.find(fakeApi.get('Orders'), data.id))
+  }
 
   return (
     <OrderContext.Provider
