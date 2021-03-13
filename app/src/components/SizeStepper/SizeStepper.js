@@ -25,7 +25,7 @@ const SizeStepper = ({ control, register, pizzaDoughId, defaultValue }) => {
       <h4>Escolha o tamanho</h4>
       <div key={`default-radio`} className="mb-3">
         <CheckboxFormGroup
-          items={sizes}
+          itemsData={sizes}
           control={control}
           register={register}
           defaultValue={defaultValue}

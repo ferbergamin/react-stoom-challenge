@@ -30,7 +30,7 @@ const FillingStepper = ({
       <h4>Escolha o recheio</h4>
       <div key={`default-radio`} className="mb-3">
         <CheckboxFormGroup
-          items={fillings}
+          itemsData={fillings}
           control={control}
           defaultValue={defaultValue}
           name="pizzaFillingId"

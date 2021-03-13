@@ -1,37 +1,69 @@
-import React from 'react'
-import { FormCheck, FormGroup } from 'react-bootstrap'
-
+import React, { useEffect, useState } from 'react'
+import { FormCheck, FormControl, FormGroup, InputGroup } from 'react-bootstrap'
 import { Controller } from 'react-hook-form'
+
+import { Search } from 'react-feather'
 
 import useTheme from 'hooks/useTheme'
 import styles from './styles.js'
 
-const CheckboxFormGroup = ({ items, control, name, defaultValue }) => {
+const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
   const style = useTheme(styles)
 
+  const [items, setItems] = useState(itemsData)
+  const [filter, setfilter] = useState('')
+
+  useEffect(() => {
+    if (filter !== '') {
+      setItems(
+        itemsData.filter((item) =>
+          item.name.toLowerCase().includes(filter.toLowerCase()),
+        ),
+      )
+    } else {
+      setItems(itemsData)
+    }
+    //eslint-disable-next-line
+  }, [filter, itemsData])
+
   return (
-    <Controller
-      as={
-        <FormGroup style={style.formGroup} controlId={name}>
-          {items.map((item) => (
-            <div style={style.check} key={item.id}>
-              <FormCheck
-                type="radio"
-                name={name}
-                label={item.name}
-                value={item.id}
-                defaultChecked={defaultValue === item.id}
-              />
-              <p>
-                <em>{item.description}</em>
-              </p>
-            </div>
-          ))}
-        </FormGroup>
-      }
-      control={control}
-      name={name}
-    />
+    <div>
+      <InputGroup className="mb-3">
+        <FormControl
+          size="sm"
+          id="search"
+          placeholder="Procurar..."
+          onChange={(e) => setfilter(e.target.value)}
+        />
+        <InputGroup.Prepend>
+          <InputGroup.Text>
+            <Search size={15} />
+          </InputGroup.Text>
+        </InputGroup.Prepend>
+      </InputGroup>
+      <Controller
+        as={
+          <FormGroup style={style.formGroup} controlId={name}>
+            {items.map((item) => (
+              <div style={style.check} key={item.id}>
+                <FormCheck
+                  type="radio"
+                  name={name}
+                  label={item.name}
+                  value={item.id}
+                  defaultChecked={defaultValue === item.id}
+                />
+                <p>
+                  <em>{item.description}</em>
+                </p>
+              </div>
+            ))}
+          </FormGroup>
+        }
+        control={control}
+        name={name}
+      />
+    </div>
   )
 }
 

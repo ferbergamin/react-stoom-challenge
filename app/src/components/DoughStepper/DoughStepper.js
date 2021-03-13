@@ -23,7 +23,7 @@ const DoughStepper = ({ control, defaultValue }) => {
       <h4>Escolha a massa</h4>
       <div key={`default-radio`} className="mb-3">
         <CheckboxFormGroup
-          items={doughs}
+          itemsData={doughs}
           control={control}
           name="pizzaDoughId"
           defaultValue={defaultValue}
