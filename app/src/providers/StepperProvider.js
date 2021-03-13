@@ -6,6 +6,7 @@ import { Toast } from 'components'
 const StepperProvider = ({ children }) => {
   const [data, setData] = useState()
   const [activeStep, setActiveStep] = useState(1)
+  const [nextDisabled, setNextDisabled] = useState(false)
 
   return (
     <StepperContext.Provider
@@ -14,6 +15,8 @@ const StepperProvider = ({ children }) => {
         setData,
         activeStep,
         setActiveStep,
+        nextDisabled,
+        setNextDisabled,
       }}
     >
       {children}

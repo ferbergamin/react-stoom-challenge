@@ -27,7 +27,7 @@ const CardStepper = ({ children, style, active, concluded, ...rest }) => {
   const [cardStyle, setStyle] = useState(style.card)
 
   return (
-    <Col xl={4} md={12}>
+    <Col md={4} sm={12}>
       <Card
         text={active || concluded ? 'light' : 'dark'}
         style={cardStyle}

@@ -1,8 +1,14 @@
 const styles = (theme) => {
-  const CARD_STYLES = {}
+  const CARD_STYLES = {
+    marginTop: theme.space(2, 'px'),
+  }
   return {
     stepper: {
-      margin: theme.space(2, 'px'),
+      margin: theme.space(1, 'px'),
+      color: theme.text.color.secondary,
+      display: 'flex',
+      height: '100%',
+      flexDirection: 'column',
     },
     card: { backgroundColor: theme.color.white, ...CARD_STYLES },
     cardActive: {

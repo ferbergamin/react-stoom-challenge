@@ -15,6 +15,8 @@ const useStepper = () => {
     loadData: context.loadData,
     activeStep: context.activeStep,
     setActiveStep: context.setActiveStep,
+    nextDisabled: context.nextDisabled,
+    setNextDisabled: context.setNextDisabled,
   }
 }
 
