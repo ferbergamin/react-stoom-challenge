@@ -8,6 +8,7 @@ const StepperProvider = ({ children }) => {
   const [activeStep, setActiveStep] = useState(1)
   const [nextDisabled, setNextDisabled] = useState(false)
   const [stepName, setStepName] = useState('PizzaDoughs')
+  const [finalizedSteps, setFinalizedSteps] = useState([])
 
   const setToStep = (step) => {
     setActiveStep(step)
@@ -21,11 +22,16 @@ const StepperProvider = ({ children }) => {
     }
   }
 
+  const finalizeStep = (step) => {
+    setFinalizedSteps([...finalizedSteps, step])
+  }
   return (
     <StepperContext.Provider
       value={{
         data,
         setData,
+        finalizedSteps,
+        finalizeStep,
         activeStep,
         setActiveStep,
         nextDisabled,

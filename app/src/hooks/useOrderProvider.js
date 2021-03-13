@@ -9,7 +9,14 @@ const useOrder = () => {
     throw new Error('useOrder possui contexto inválido')
   }
 
-  const { data, setData, loadData, updateOrder, orderLoaded } = context
+  const {
+    data,
+    setData,
+    loadData,
+    updateOrder,
+    orderLoaded,
+    finalizeOrder,
+  } = context
 
   return {
     data,
@@ -17,6 +24,7 @@ const useOrder = () => {
     loadData,
     updateOrder,
     orderLoaded,
+    finalizeOrder,
   }
 }
 

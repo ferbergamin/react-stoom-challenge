@@ -29,7 +29,7 @@ const CardStepper = ({ children, style, active, concluded, step, ...rest }) => {
   const [cardStyle, setStyle] = useState(style.card)
 
   const handleGoToStep = () => {
-    if ((active || concluded) && activeStep < 3) {
+    if ((active || concluded) && activeStep < 4) {
       setToStep(step)
     }
   }
@@ -40,7 +40,7 @@ const CardStepper = ({ children, style, active, concluded, step, ...rest }) => {
       sm={12}
       onClick={handleGoToStep}
       style={{
-        cursor: (active || concluded) && activeStep < 3 ? 'pointer' : 'auto',
+        cursor: (active || concluded) && activeStep < 4 ? 'pointer' : 'auto',
       }}
     >
       <Card

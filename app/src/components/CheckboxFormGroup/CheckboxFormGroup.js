@@ -1,18 +1,12 @@
 import React from 'react'
 import { FormCheck, FormGroup } from 'react-bootstrap'
 
-import useTheme from 'hooks/useTheme'
-
-import styles from './styles.js'
 import { Controller } from 'react-hook-form'
 
-const CheckboxFormGroup = ({
-  items,
-  control,
-  register,
-  name,
-  defaultValue,
-}) => {
+import useTheme from 'hooks/useTheme'
+import styles from './styles.js'
+
+const CheckboxFormGroup = ({ items, control, name, defaultValue }) => {
   const style = useTheme(styles)
 
   return (
@@ -26,8 +20,7 @@ const CheckboxFormGroup = ({
                 name={name}
                 label={item.name}
                 value={item.id}
-                defaultChecked={defaultValue === item.id.toString()}
-                ref={register}
+                defaultChecked={defaultValue === item.id}
               />
               <p>
                 <em>{item.description}</em>

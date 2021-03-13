@@ -38,7 +38,7 @@ const OrderProvider = ({ children }) => {
     cb(activeOrder[0])
   }
 
-  const updateOrder = (field, id, value = '') => {
+  const updateOrder = (field, id, value = '', cb = (data) => {}) => {
     var dataUpdate = value
 
     if (['PizzaDoughs', 'PizzaSizes', 'PizzaFillings'].includes(field)) {
@@ -56,15 +56,13 @@ const OrderProvider = ({ children }) => {
       },
     })
 
-    if (field === 'PizzaFillings') {
-      return loadData(finalizeOrder)
-    }
-    loadData()
+    loadData(cb)
   }
 
   const finalizeOrder = (data) => {
+    console.log(data)
     const ammount =
-      data.PizzaDough.price + data.PizzaFilling.price + data.PizzaSize.price
+      data.PizzaDough?.price + data.PizzaFilling?.price + data.PizzaSize?.price
 
     dispatchBackend({
       type: 'UPDATE',
@@ -88,6 +86,7 @@ const OrderProvider = ({ children }) => {
         loadData,
         updateOrder,
         orderLoaded,
+        finalizeOrder,
       }}
     >
       {children}

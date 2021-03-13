@@ -16,7 +16,8 @@ const useStepper = () => {
     loadData,
     setToStep,
     activeStep,
-
+    finalizedSteps,
+    finalizeStep,
     nextDisabled,
     setActiveStep,
     setNextDisabled,
@@ -29,7 +30,8 @@ const useStepper = () => {
     loadData,
     setToStep,
     activeStep,
-
+    finalizedSteps,
+    finalizeStep,
     nextDisabled,
     setActiveStep,
     setNextDisabled,

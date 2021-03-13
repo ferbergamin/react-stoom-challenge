@@ -7,7 +7,7 @@ import styles from './styles.js'
 import fakeApi from 'services/fakeApi.js'
 import { CheckboxFormGroup } from 'components'
 
-const DoughStepper = ({ control, register, defaultValue }) => {
+const DoughStepper = ({ control, defaultValue }) => {
   const [doughs, setDoughs] = useState([])
   useEffect(() => {
     const loadDoughs = () => {
@@ -25,9 +25,8 @@ const DoughStepper = ({ control, register, defaultValue }) => {
         <CheckboxFormGroup
           items={doughs}
           control={control}
-          register={register}
           name="pizzaDoughId"
-          defaultValue={defaultValue || ''}
+          defaultValue={defaultValue}
         />
       </div>
     </Container>

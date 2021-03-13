@@ -2,13 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
 
 import { CheckboxFormGroup } from 'components/'
+import { Controller } from 'react-hook-form'
 
 import useTheme from 'hooks/useTheme'
 
 import styles from './styles.js'
 import fakeApi from 'services/fakeApi.js'
 
-const FillingStepper = ({ control, register }) => {
+const FillingStepper = ({
+  control,
+  pizzaDoughId,
+  pizzaSizeId,
+  defaultValue,
+}) => {
   const [fillings, setFillings] = useState([])
   useEffect(() => {
     const loadFillings = () => {
@@ -26,10 +32,20 @@ const FillingStepper = ({ control, register }) => {
         <CheckboxFormGroup
           items={fillings}
           control={control}
-          register={register}
+          defaultValue={defaultValue}
           name="pizzaFillingId"
         />
       </div>
+      <Controller
+        as={<input type="hidden" value={pizzaDoughId} />}
+        control={control}
+        name="pizzaDoughId"
+      />
+      <Controller
+        as={<input type="hidden" value={pizzaSizeId} />}
+        control={control}
+        name="pizzaSizeId"
+      />
     </Container>
   )
 }

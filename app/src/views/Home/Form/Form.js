@@ -1,0 +1,118 @@
+import React, { useEffect } from 'react'
+
+import { Button } from 'react-bootstrap'
+
+import {
+  DoughStepper,
+  FillingStepper,
+  LoadingComponent,
+  OrderFinalized,
+  SizeStepper,
+} from 'components'
+
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+import useStepper from 'hooks/useStepper'
+import useOrder from 'hooks/useOrderProvider'
+
+import schema from './schema'
+
+export const Form = () => {
+  const { data, updateOrder, orderLoaded, finalizeOrder } = useOrder()
+
+  const {
+    setToStep,
+    activeStep,
+    nextDisabled,
+    stepName,
+    setNextDisabled,
+    finalizeStep,
+  } = useStepper()
+
+  const { control, handleSubmit, watch, getValues, setValue } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      pizzaDoughId: data?.PizzaDough?.id?.toString() || '',
+      pizzaSizeId: data?.PizzaSize?.id?.toString() || '',
+      pizzaFillingId: data?.PizzaFilling?.id?.toString() || '',
+    },
+  })
+
+  useEffect(() => {
+    if (activeStep < 4) {
+      const values = watch()
+      const valueIsNull = () =>
+        !Boolean(
+          watch()[stepName[0].toLowerCase() + stepName.slice(1, -1) + 'Id'],
+        )
+
+      if (valueIsNull() || Object.keys(values) > 1) {
+        for (let key in values) {
+          let dataKey =
+            key.charAt(0).toUpperCase() + key.slice(1, key.length - 2)
+          if (data) {
+            setValue(key, data[dataKey]?.id?.toString())
+          }
+        }
+      }
+
+      setNextDisabled(valueIsNull())
+    }
+    //eslint-disable-next-line
+  }, [activeStep, data, watch(stepName[0].toLowerCase() + stepName.slice(1, -1) + 'Id')])
+
+  const passStep = () => {
+    var values = getValues()
+    updateOrder(stepName, values[Object.keys(values)[0]])
+    finalizeStep(activeStep)
+    setToStep(activeStep + 1)
+  }
+
+  const submit = () => {
+    var values = getValues()
+    updateOrder(stepName, values[Object.keys(values)[0]], '', finalizeOrder)
+    finalizeStep(activeStep)
+    setToStep(activeStep + 1)
+  }
+
+  return (
+    <LoadingComponent loading={!orderLoaded || data === undefined}>
+      <form onSubmit={handleSubmit(submit)}>
+        {activeStep === 1 && (
+          <DoughStepper control={control} defaultValue={data?.PizzaDough?.id} />
+        )}
+        {activeStep === 2 && (
+          <SizeStepper
+            control={control}
+            defaultValue={data?.PizzaSize?.id}
+            pizzaDoughId={data?.PizzaDough.id}
+          />
+        )}
+        {activeStep === 3 && (
+          <FillingStepper
+            control={control}
+            defaultValue={data?.PizzaFilling?.id}
+            pizzaDoughId={data?.PizzaDough?.id}
+            pizzaSizeId={data?.PizzaSize?.id}
+          />
+        )}
+        {activeStep === 4 && <OrderFinalized />}
+        {activeStep >= 3 && (
+          <Button disabled={nextDisabled} variant="primary" type="submit">
+            {activeStep === 3 ? 'Salvar' : 'Ver todos os pedidos'}
+          </Button>
+        )}
+      </form>
+      {activeStep < 3 && (
+        <div>
+          <Button variant="primary" onClick={passStep} disabled={nextDisabled}>
+            Próximo
+          </Button>
+        </div>
+      )}
+    </LoadingComponent>
+  )
+}
+
+export default Form

@@ -8,7 +8,7 @@ import useStepper from 'hooks/useStepper'
 
 const Stepper = ({ children }) => {
   const style = useTheme(styles)
-  const { activeStep } = useStepper()
+  const { activeStep, finalizedSteps } = useStepper()
 
   return (
     <div style={style.stepper}>
@@ -17,7 +17,7 @@ const Stepper = ({ children }) => {
           style={style}
           step={1}
           active={activeStep === 1}
-          concluded={activeStep > 1}
+          concluded={finalizedSteps.includes(1)}
         >
           Escolha a massa
         </CardStepper>
@@ -25,7 +25,7 @@ const Stepper = ({ children }) => {
           style={style}
           step={2}
           active={activeStep === 2}
-          concluded={activeStep > 2}
+          concluded={finalizedSteps.includes(2)}
         >
           Escolha o tamanho
         </CardStepper>
@@ -33,7 +33,7 @@ const Stepper = ({ children }) => {
           step={3}
           style={style}
           active={activeStep === 3}
-          concluded={activeStep > 3}
+          concluded={finalizedSteps.includes(3)}
         >
           Escolha o sabor
         </CardStepper>
