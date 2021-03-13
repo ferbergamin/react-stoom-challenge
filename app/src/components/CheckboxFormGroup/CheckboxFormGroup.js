@@ -10,21 +10,22 @@ import {
 import { Controller } from 'react-hook-form'
 
 import { Search } from 'react-feather'
+import { pizzas } from 'helpers'
 
 import useRecommendation from 'hooks/useRecommendations.js'
 import useTheme from 'hooks/useTheme'
 import styles from './styles.js'
-import { pizzas } from 'helpers'
 
 const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
   const style = useTheme(styles)
 
-  const [items, setItems] = useState(itemsData)
   const {
     data: recommendation,
     recommendationChecked,
     setRecommendationChecked,
   } = useRecommendation()
+
+  const [items, setItems] = useState(itemsData)
   const [filter, setfilter] = useState('')
 
   useEffect(() => {
@@ -86,7 +87,7 @@ const CheckboxFormGroup = ({ itemsData, control, name, defaultValue }) => {
                     <em>{pizzas.formatPrice(item?.price)}</em>
                   </Col>
                 </div>
-                <hr className="divider bg-white"></hr>
+                <hr className="divider bg-white" />
               </div>
             ))}
           </FormGroup>

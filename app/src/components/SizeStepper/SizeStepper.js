@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
+import { Controller } from 'react-hook-form'
+import { CheckboxFormGroup } from 'components/'
 
 import useTheme from 'hooks/useTheme'
 import styles from './styles'
 
 import fakeApi from 'services/fakeApi'
-
-import { CheckboxFormGroup } from 'components/'
-import { Controller } from 'react-hook-form'
 
 const SizeStepper = ({ control, register, pizzaDoughId, defaultValue }) => {
   const [sizes, setSizes] = useState([])

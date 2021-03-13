@@ -2,6 +2,7 @@ const styles = (theme) => {
   const CARD_STYLES = {
     marginTop: theme.space(2, 'px'),
   }
+
   return {
     stepper: {
       margin: theme.space(1, 'px'),

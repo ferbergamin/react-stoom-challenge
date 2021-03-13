@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
+import { CheckboxFormGroup } from 'components'
 
 import useTheme from 'hooks/useTheme'
 
 import styles from './styles.js'
 import fakeApi from 'services/fakeApi.js'
-import { CheckboxFormGroup } from 'components'
 
 const DoughStepper = ({ control, defaultValue }) => {
   const [doughs, setDoughs] = useState([])

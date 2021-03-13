@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
-
-import { CheckboxFormGroup } from 'components/'
 import { Controller } from 'react-hook-form'
+import { CheckboxFormGroup } from 'components/'
 
 import useTheme from 'hooks/useTheme'
 

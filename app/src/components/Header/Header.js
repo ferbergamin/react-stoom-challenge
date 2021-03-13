@@ -12,6 +12,7 @@ import styles from './styles'
 const Header = () => {
   const style = useTheme(styles)
   const { activeStep } = useStepper()
+
   return (
     <header style={style.header}>
       <Navbar className="mr-auto" variant="light">

@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
-
 import { Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import OrderTable from './components/OrdersTable'
 
 import useOrder from 'hooks/useOrderProvider'
-
 import useTheme from 'hooks/useTheme'
 import styles from './styles'
+
 import { routes } from 'Routes'
 
 const Orders = () => {
   const style = useTheme(styles)
   const [orders, setOrders] = useState([])
   const { loadOrders } = useOrder()
+
   const loadData = () => {
     setOrders(loadOrders)
   }

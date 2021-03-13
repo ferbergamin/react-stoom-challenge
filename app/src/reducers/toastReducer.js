@@ -2,6 +2,7 @@ const toastReducer = (state, action) => {
   const { type } = action
   let data = {}
   const toast = state.toast
+
   switch (type) {
     case 'SUCCESS':
       data = {

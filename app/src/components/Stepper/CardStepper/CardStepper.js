@@ -1,7 +1,8 @@
-import useStepper from 'hooks/useStepper'
 import React, { useEffect, useState } from 'react'
 import { Card, Col } from 'react-bootstrap'
 import { CheckSquare, MinusSquare, XSquare } from 'react-feather'
+
+import useStepper from 'hooks/useStepper'
 
 const CardStepper = ({ children, style, active, concluded, step, ...rest }) => {
   useEffect(() => {

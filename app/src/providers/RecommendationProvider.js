@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 
 import RecommendationContext from 'contexts/RecommendationContext'
+import useBackend from 'hooks/useBackend'
 
 import fakeApi from 'services/fakeApi'
-import useBackend from 'hooks/useBackend'
-import { pizzas } from 'helpers'
 import { generateId } from 'services/methods'
+
+import { pizzas } from 'helpers'
 
 const RecommendationProvider = ({ children }) => {
   const [data, setData] = useState()

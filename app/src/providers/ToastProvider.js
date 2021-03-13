@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from 'react'
+import { Toast } from 'components'
 
 import ToastContext from 'contexts/ToastContext'
-import { Toast } from 'components'
 import toastReducer from 'reducers/toastReducer'
 
 const initialToast = {

@@ -1,6 +1,6 @@
 import React from 'react'
-
 import { GlobalProvider } from 'components'
+
 import Routes from 'Routes'
 
 function App() {

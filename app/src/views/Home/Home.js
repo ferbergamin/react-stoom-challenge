@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
-
 import { Container } from 'react-bootstrap'
-
 import { LoadingComponent, Stepper } from 'components'
 import { Form } from './Form'
 
 import useStepper from 'hooks/useStepper'
-import useTheme from 'hooks/useTheme'
 import useOrder from 'hooks/useOrderProvider'
 import useRecommendation from 'hooks/useRecommendations'
+import useTheme from 'hooks/useTheme'
 
 import styles from './styles'
 
