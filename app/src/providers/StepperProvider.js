@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import StepperContext from 'contexts/StepperContext'
-import { Toast } from 'components'
 
 const StepperProvider = ({ children }) => {
   const [data, setData] = useState()
@@ -45,7 +44,6 @@ const StepperProvider = ({ children }) => {
       }}
     >
       {children}
-      <Toast />
     </StepperContext.Provider>
   )
 }

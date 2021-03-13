@@ -14,13 +14,14 @@ import styles from './styles'
 
 const Home = () => {
   const style = useTheme(styles)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const { activeStep } = useStepper()
   const { loadData: loadRecommendations } = useRecommendation()
   const { data, loadData } = useOrder()
 
   useEffect(() => {
     if (!data) {
+      setLoading(true)
       loadData(() => {
         loadRecommendations(() => {
           setLoading(false)

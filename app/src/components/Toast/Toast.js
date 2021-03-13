@@ -1,35 +1,36 @@
 import React from 'react'
+
 import {
   Toast as ToastBootstrap,
   ToastHeader,
   ToastBody,
   Alert,
 } from 'react-bootstrap'
+
 import useToast from 'hooks/useToast'
+import useTheme from 'hooks/useTheme'
+import styles from './styles'
 
 const Toast = () => {
   const { toast, close } = useToast()
 
+  const style = useTheme(styles)
   return (
     <ToastBootstrap
-      style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        marginLeft: '10px',
-        padding: 0,
-        minWidth: '30%',
-        backgroundColor: 'transparent',
-      }}
+      style={style.toast}
       show={toast.toast.visible}
       onClose={close}
     >
       <ToastHeader>
         <strong className="mr-auto">Mensagem</strong>
       </ToastHeader>
-      <Alert variant={toast.toast.variant}>
+      <ToastBody
+        as={Alert}
+        style={style.alertBody}
+        variant={toast.toast.variant}
+      >
         <ToastBody>{toast.toast.message}</ToastBody>
-      </Alert>
+      </ToastBody>
     </ToastBootstrap>
   )
 }

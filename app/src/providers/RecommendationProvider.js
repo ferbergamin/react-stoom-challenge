@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import RecommendationContext from 'contexts/RecommendationContext'
-import { Toast } from 'components'
 
 import fakeApi from 'services/fakeApi'
 import useBackend from 'hooks/useBackend'
@@ -53,7 +52,6 @@ const RecommendationProvider = ({ children }) => {
       }}
     >
       {children}
-      <Toast />
     </RecommendationContext.Provider>
   )
 }

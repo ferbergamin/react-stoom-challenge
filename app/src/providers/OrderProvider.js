@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import OrderContext from 'contexts/OrderContext'
-import { Toast } from 'components'
 
 import fakeApi from 'services/fakeApi'
 import useBackend from 'hooks/useBackend'
@@ -12,6 +11,10 @@ const OrderProvider = ({ children }) => {
   const { dispatchBackend } = useBackend()
   const { finalizeStep, setToStep } = useStepper()
   const [orderLoaded, setOrderLoaded] = useState(false)
+
+  const loadOrders = () => {
+    return fakeApi.get('Orders')
+  }
 
   const loadData = (cb = () => {}) => {
     let activeOrder = fakeApi.findBy(fakeApi.get('Orders'), {
@@ -103,10 +106,10 @@ const OrderProvider = ({ children }) => {
         updateOrder,
         orderLoaded,
         finalizeOrder,
+        loadOrders,
       }}
     >
       {children}
-      <Toast />
     </OrderContext.Provider>
   )
 }

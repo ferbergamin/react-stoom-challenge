@@ -15,13 +15,13 @@ const MainLayout = ({ component, provider }) => {
 
   return (
     <div style={style.layout}>
-      <Header />
-      <LoadingComponent loading={!backendLoaded}>
-        <Provider>
+      <Provider>
+        <Header />
+        <LoadingComponent loading={!backendLoaded}>
           <Component />
-        </Provider>
-      </LoadingComponent>
-      <Footer />
+        </LoadingComponent>
+        <Footer />
+      </Provider>
     </div>
   )
 }

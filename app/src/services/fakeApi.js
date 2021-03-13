@@ -57,6 +57,25 @@ const findBy = (data, params) => {
   })
 }
 
+const remove = (tableName, table, id) => {
+  const { data } = table
+
+  if (!id) {
+    errors.InvalidParams('id')
+  }
+
+  const object = findById(data, id)
+  if (!object) {
+    errors.NotFound(tableName)
+  }
+
+  const newTable = table
+  const newData = data.filter((obj) => obj.id !== id)
+  newTable.data = newData
+  localStorage.setItem(tableName, JSON.stringify(newData))
+  return newTable
+}
+
 const get = (tableName) => {
   return JSON.parse(localStorage.getItem(tableName) || [])
 }
@@ -66,6 +85,7 @@ const fakeApi = {
   post,
   update,
   findBy,
+  remove,
   find: findById,
 }
 

@@ -20,7 +20,7 @@ const theme = {
     fontSize: {
       h6: '1.4em',
       h5: '1.4em',
-      h4: '1.4em',
+      h4: '1.7em',
       h3: '1.4em',
       h2: '1.4em',
       h1: '1.4em',

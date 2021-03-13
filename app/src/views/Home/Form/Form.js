@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react'
 
 import { Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import {
   DoughStepper,
@@ -9,14 +13,12 @@ import {
   SizeStepper,
 } from 'components'
 
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-
 import useStepper from 'hooks/useStepper'
 import useOrder from 'hooks/useOrderProvider'
 import useRecommendation from 'hooks/useRecommendations'
 
 import schema from './schema'
+import { routes } from 'Routes'
 
 export const Form = () => {
   const { data, setData, updateOrder, finalizeOrder } = useOrder()
@@ -112,14 +114,21 @@ export const Form = () => {
             pizzaSizeId={data?.PizzaSize?.id}
           />
         )}
-        {activeStep === 4 && <OrderFinalized />}
 
-        {activeStep >= 3 && (
+        {activeStep === 3 && (
           <Button disabled={nextDisabled} variant="primary" type="submit">
-            {activeStep === 3 ? 'Finalizar' : 'Ver todos os pedidos'}
+            Finalizar
           </Button>
         )}
       </form>
+      {activeStep === 4 && (
+        <OrderFinalized>
+          <Link to={routes.orders} className="btn btn-primary">
+            Ver meus pedidos
+          </Link>
+        </OrderFinalized>
+      )}
+
       {activeStep < 3 && (
         <div>
           {recommendationChecked ? (

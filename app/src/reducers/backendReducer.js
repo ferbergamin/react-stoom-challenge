@@ -1,7 +1,10 @@
+import translateName from 'constants/tables/translateName'
 import fakeApi from 'services/fakeApi'
 
 const backendReducer = (state, action) => {
   const { type, tableName, payload, dispatchToast } = action
+  const humanTableName = translateName(tableName)
+
   const table = state[tableName]
   const newData = state
 
@@ -13,7 +16,7 @@ const backendReducer = (state, action) => {
         if (dispatchToast) {
           dispatchToast({
             type: 'SUCCESS',
-            message: `${tableName} criado com sucesso`,
+            message: `${humanTableName} criado com sucesso`,
           })
         }
         return newData
@@ -30,7 +33,24 @@ const backendReducer = (state, action) => {
         if (dispatchToast) {
           dispatchToast({
             type: 'SUCCESS',
-            message: `${tableName} atualizado com sucesso`,
+            message: `${humanTableName} atualizado com sucesso`,
+          })
+        }
+        return newData
+      } catch (err) {
+        if (dispatchToast) {
+          dispatchToast({ type: 'ERROR', message: err.message })
+        }
+        return state
+      }
+    case 'DELETE':
+      try {
+        const removeResponse = fakeApi.remove(tableName, table, payload.id)
+        newData[tableName] = removeResponse
+        if (dispatchToast) {
+          dispatchToast({
+            type: 'SUCCESS',
+            message: `${humanTableName} removido com sucesso`,
           })
         }
         return newData

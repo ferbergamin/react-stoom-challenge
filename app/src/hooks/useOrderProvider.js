@@ -16,6 +16,7 @@ const useOrder = () => {
     updateOrder,
     orderLoaded,
     finalizeOrder,
+    loadOrders,
   } = context
 
   return {
@@ -25,6 +26,7 @@ const useOrder = () => {
     updateOrder,
     orderLoaded,
     finalizeOrder,
+    loadOrders,
   }
 }
 
