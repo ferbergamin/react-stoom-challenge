@@ -18,7 +18,7 @@ const CheckboxFormGroup = ({
   return (
     <Controller
       as={
-        <FormGroup style={style.formGroup} controlId={name} ref={register}>
+        <FormGroup style={style.formGroup} controlId={name}>
           {items.map((item) => (
             <div style={style.check} key={item.id}>
               <FormCheck
@@ -26,6 +26,8 @@ const CheckboxFormGroup = ({
                 name={name}
                 label={item.name}
                 value={item.id}
+                defaultChecked={defaultValue === item.id.toString()}
+                ref={register}
               />
               <p>
                 <em>{item.description}</em>
@@ -34,7 +36,6 @@ const CheckboxFormGroup = ({
           ))}
         </FormGroup>
       }
-      defaultValue={defaultValue}
       control={control}
       name={name}
     />

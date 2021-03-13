@@ -9,10 +9,18 @@ const useBackend = () => {
     throw Error('useBackend possui contexto inválido')
   }
 
-  const { stateBackend, dispatchBackend } = context
+  const {
+    stateBackend,
+    dispatchBackend,
+    backendLoaded,
+    setBackendLoaded,
+  } = context
+
   return {
     stateBackend,
     dispatchBackend,
+    backendLoaded,
+    setBackendLoaded,
   }
 }
 

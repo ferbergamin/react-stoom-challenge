@@ -12,9 +12,9 @@ function App() {
   return (
     <ToastProvider>
       <StepperProvider>
-        <OrderProvider>
-          <MainLayout provider={BackendProvider} component={Home} />
-        </OrderProvider>
+        <BackendProvider>
+          <MainLayout provider={OrderProvider} component={Home} />
+        </BackendProvider>
       </StepperProvider>
     </ToastProvider>
   )

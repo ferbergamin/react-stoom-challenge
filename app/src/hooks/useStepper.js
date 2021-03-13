@@ -9,14 +9,30 @@ const useStepper = () => {
     throw new Error('useStepper possui contexto inválido')
   }
 
+  const {
+    data,
+    setData,
+    stepName,
+    loadData,
+    setToStep,
+    activeStep,
+
+    nextDisabled,
+    setActiveStep,
+    setNextDisabled,
+  } = context
+
   return {
-    data: context.data,
-    setData: context.setData,
-    loadData: context.loadData,
-    activeStep: context.activeStep,
-    setActiveStep: context.setActiveStep,
-    nextDisabled: context.nextDisabled,
-    setNextDisabled: context.setNextDisabled,
+    data,
+    setData,
+    stepName,
+    loadData,
+    setToStep,
+    activeStep,
+
+    nextDisabled,
+    setActiveStep,
+    setNextDisabled,
   }
 }
 

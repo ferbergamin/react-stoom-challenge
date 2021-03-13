@@ -1,77 +1,100 @@
 import React, { useEffect } from 'react'
 
 import { Container, Button } from 'react-bootstrap'
-import { DoughStepper, SizeStepper, Stepper } from 'components'
-import { useForm } from 'react-hook-form'
+import {
+  DoughStepper,
+  LoadingComponent,
+  SizeStepper,
+  Stepper,
+} from 'components'
 
-// import useToast from 'hooks/useToast'
-// import useBackend from 'hooks/useBackend'
-import useStepper from 'hooks/useStepper'
-import schema from './schema'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
+import useStepper from 'hooks/useStepper'
 import useTheme from 'hooks/useTheme'
+import useOrder from 'hooks/useOrderProvider'
+
+import schema from './schema'
 import styles from './styles'
-import mountNextDisabled from 'helpers/home/mountNextDisabled'
 
 const Home = () => {
   const style = useTheme(styles)
 
   const {
-    setActiveStep,
+    setToStep,
     activeStep,
     nextDisabled,
     setNextDisabled,
+    stepName,
   } = useStepper()
 
+  const { data, updateOrder, orderLoaded, loadData } = useOrder()
+
   const defaultValues = {
-    pizzaDoughId: '',
-    pizzaSizeId: '',
-    pizzaFillingId: '',
+    pizzaDoughId: data?.PizzaDough?.id?.toString() || '',
+    pizzaSizeId: data?.PizzaSize?.id?.toString() || '',
+    pizzaFillingId: data?.PizzaFilling?.id?.toString() || '',
   }
 
-  const { register, control, handleSubmit, watch } = useForm({
+  const { register, control, handleSubmit, watch, getValues } = useForm({
     resolver: yupResolver(schema),
     defaultValues: defaultValues,
   })
 
   useEffect(() => {
-    setNextDisabled(mountNextDisabled(activeStep, watch))
+    if (!data) {
+      loadData()
+    }
+
+    const condition = ['', 0, null, undefined].includes(
+      watch()[Object.keys(watch())[0]],
+    )
+
+    setNextDisabled(condition)
     //eslint-disable-next-line
   }, [activeStep, watch()])
 
   const submit = () => {
-    setActiveStep(activeStep + 1)
+    var values = getValues()
+    updateOrder(stepName, values[Object.keys(values)[0]])
+    setToStep(activeStep + 1)
   }
 
   return (
     <Container fluid="xl" style={style.container}>
       <Stepper>
-        <form onSubmit={handleSubmit(submit)}>
-          {activeStep === 1 && (
-            <DoughStepper
-              control={control}
-              register={register}
-              defaultValue={defaultValues.pizzaDoughId}
-            />
-          )}
-          {activeStep === 2 && (
-            <SizeStepper
-              control={control}
-              register={register}
-              defaultValue={defaultValues.pizzaSizeId}
-            />
-          )}
-          {activeStep < 3 ? (
-            <Button variant="primary" onClick={submit} disabled={nextDisabled}>
-              Próximo
-            </Button>
-          ) : (
-            <Button variant="primary" disabled={nextDisabled} type="submit">
-              Salvar
-            </Button>
-          )}
-        </form>
+        <LoadingComponent loading={!orderLoaded || data === undefined}>
+          <form onSubmit={handleSubmit(submit)}>
+            {activeStep === 1 && (
+              <DoughStepper
+                control={control}
+                register={register}
+                defaultValue={defaultValues.pizzaDoughId}
+              />
+            )}
+            {activeStep === 2 && (
+              <SizeStepper
+                control={control}
+                register={register}
+                defaultValue={defaultValues.pizzaSizeId}
+              />
+            )}
+            {activeStep < 3 ? (
+              <Button
+                variant="primary"
+                onClick={submit}
+                disabled={nextDisabled}
+              >
+                Próximo
+              </Button>
+            ) : (
+              <Button variant="primary" type="submit">
+                Salvar
+              </Button>
+            )}
+          </form>
+        </LoadingComponent>
       </Stepper>
     </Container>
   )

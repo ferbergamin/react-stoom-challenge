@@ -24,13 +24,13 @@ const CardStepper = ({ children, style, active, concluded, step, ...rest }) => {
     //eslint-disable-next-line
   }, [active, concluded])
 
-  const { setActiveStep } = useStepper()
+  const { setToStep } = useStepper()
   const [Icon, setIcon] = useState(XSquare)
   const [cardStyle, setStyle] = useState(style.card)
 
   const handleGoToStep = () => {
     if (active || concluded) {
-      setActiveStep(step)
+      setToStep(step)
     }
   }
 

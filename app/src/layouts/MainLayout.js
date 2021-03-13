@@ -1,20 +1,26 @@
 import React from 'react'
-import { Footer, Header } from 'components'
+
+import { Footer, Header, LoadingComponent } from 'components'
+
+import useBackend from 'hooks/useBackend'
 
 import useTheme from 'hooks/useTheme'
 import styles from './styles'
 
 const MainLayout = ({ component, provider }) => {
   const style = useTheme(styles)
+  const { backendLoaded } = useBackend()
   const Component = component
   const Provider = provider
 
   return (
     <div style={style.layout}>
       <Header />
-      <Provider>
-        <Component />
-      </Provider>
+      <LoadingComponent loading={!backendLoaded}>
+        <Provider>
+          <Component />
+        </Provider>
+      </LoadingComponent>
       <Footer />
     </div>
   )
