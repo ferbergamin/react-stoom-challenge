@@ -10,27 +10,34 @@ const backendReducer = (state, action) => {
       try {
         const postResponse = fakeApi.post(tableName, table, payload)
         newData[tableName] = postResponse
-        dispatchToast({
-          type: 'SUCCESS',
-          message: `${tableName} criado com sucesso`,
-        })
-
+        if (dispatchToast) {
+          dispatchToast({
+            type: 'SUCCESS',
+            message: `${tableName} criado com sucesso`,
+          })
+        }
         return newData
       } catch (err) {
-        dispatchToast({ type: 'ERROR', message: err.message })
+        if (dispatchToast) {
+          dispatchToast({ type: 'ERROR', message: err.message })
+        }
         return state
       }
     case 'UPDATE':
       try {
         const updateResponse = fakeApi.update(tableName, table, payload)
         newData[tableName] = updateResponse
-        dispatchToast({
-          type: 'SUCCESS',
-          message: `${tableName} atualizado com sucesso`,
-        })
+        if (dispatchToast) {
+          dispatchToast({
+            type: 'SUCCESS',
+            message: `${tableName} atualizado com sucesso`,
+          })
+        }
         return newData
       } catch (err) {
-        dispatchToast({ type: 'ERROR', message: err.message })
+        if (dispatchToast) {
+          dispatchToast({ type: 'ERROR', message: err.message })
+        }
         return state
       }
     default:

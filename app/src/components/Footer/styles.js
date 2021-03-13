@@ -1,10 +1,10 @@
 const styles = (theme) => {
   return {
     footer: {
-      padding: theme.space(1, 'px'),
+      padding: theme.space(2, 'px'),
       display: 'flex',
       flexDirection: 'column',
-      backgroundColor: theme.color.backgroumd,
+      backgroundColor: theme.color.secodary,
       width: '100%',
     },
     span: {

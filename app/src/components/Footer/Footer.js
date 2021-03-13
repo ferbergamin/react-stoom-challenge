@@ -7,7 +7,7 @@ const Footer = () => {
 
   return (
     <footer style={style.footer}>
-      <span style={style.span}>Desenvolvido com ❤ por Luiz F Bergamin</span>
+      <span style={style.span}>Feito com ❤ e carinho por Luiz F Bergamin</span>
       <span style={style.span}>React Stoom Challenge</span>
     </footer>
   )

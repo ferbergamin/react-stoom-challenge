@@ -1,10 +1,5 @@
-export const styles = (theme) => {
+export const styles = () => {
   return {
-    layout: {
-      textAlign: 'center',
-      justifyContent: 'space-between',
-      backgroundColor: theme.color.backgroumd,
-    },
     loadingDiv: {
       minHeight: '87vh',
       display: 'flex',

@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 
 import { pizza } from 'constants/index'
 import { backend } from 'helpers'
@@ -7,7 +7,12 @@ import backendReducer from 'reducers/backendReducer'
 import BackendContext from 'contexts/BackendContext'
 
 const BackendProvider = ({ children }) => {
-  useEffect(() => createBackend())
+  const [backendLoaded, setBackendLoaded] = useState(false)
+
+  useEffect(() => {
+    createBackend()
+    if (!backendLoaded) setBackendLoaded(true)
+  }, [backendLoaded])
 
   const createBackend = () => {
     pizza.tableKeys.forEach((tableKey) => {
@@ -38,6 +43,8 @@ const BackendProvider = ({ children }) => {
         createBackend,
         stateBackend,
         dispatchBackend,
+        backendLoaded,
+        setBackendLoaded,
       }}
     >
       {children}

@@ -9,10 +9,12 @@ const useToast = () => {
     throw new Error('useToast possui contexto inválido')
   }
 
+  const { toast, dispatchToast, close } = context
+
   return {
-    toast: context.toast,
-    dispatchToast: context.dispatchToast,
-    close: context.close,
+    toast,
+    dispatchToast,
+    close,
   }
 }
 

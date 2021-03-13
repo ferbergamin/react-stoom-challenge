@@ -57,7 +57,12 @@ const findBy = (data, params) => {
   })
 }
 
+const get = (tableName) => {
+  return JSON.parse(localStorage.getItem(tableName) || [])
+}
+
 const fakeApi = {
+  get,
   post,
   update,
   findBy,

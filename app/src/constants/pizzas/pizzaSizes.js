@@ -3,7 +3,7 @@ const pizzaSizes = [
     id: 1,
     name: 'Broto',
     description:
-      'Pra trovadores solitários ou casal de regime que não resiste à uma boa pizza',
+      'Para trovadores solitários ou casal de regime que não resiste à uma boa pizza',
     price: 5.0,
   },
   {
@@ -22,7 +22,7 @@ const pizzaSizes = [
     id: 4,
     name: 'Família completa',
     description:
-      'Talvez coelhos consigam pedir pizza, não é mesmo? Talvez tigres famintos...',
+      'Talvez coelhos consigam pedir pizza, não é mesmo? Ou se não tigres famintos...',
     price: 15.0,
   },
 ]
